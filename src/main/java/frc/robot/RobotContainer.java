@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.AutoCommand;
@@ -22,7 +23,7 @@ public class RobotContainer {
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
   private final AutoCommand autoCommand = new AutoCommand();
-  final XboxController driverController = new XboxController(OIConstants.DRIVER_CONTROLLER_PORT);
+  final XboxController driverController = new XboxController(USBConstants.DRIVER_CONTROLLER_PORT);
 
 
   public RobotContainer() {
