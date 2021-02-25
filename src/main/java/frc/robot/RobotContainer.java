@@ -7,10 +7,13 @@ package frc.robot;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.AutoCommand;
+import frc.robot.commands.ElevatorDownCommand;
+import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,12 +24,19 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
-  private final AutoCommand autoCommand = new AutoCommand();
+  private final ElevatorDownCommand elevatorDownCommand = new ElevatorDownCommand(elevatorSubsystem);
+  private final ElevatorUpCommand elevatorUpCommand = new ElevatorUpCommand(elevatorSubsystem);
+  
   final XboxController driverController = new XboxController(USBConstants.DRIVER_CONTROLLER_PORT);
 
-
+  private void calibrate(){
+    System.out.println("Gyro is calibrating...");
+    driveSubsystem.calibrateGyro();
+  }
   public RobotContainer() {
+    calibrate();
     configureButtonBindings();
 
     driveSubsystem.setDefaultCommand(new RunCommand(() -> {
@@ -36,16 +46,14 @@ public class RobotContainer {
     }, driveSubsystem));
   }
 
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    new JoystickButton(driverController, XboxConstants.LB_BUTTON).whileHeld(elevatorDownCommand);
+    new JoystickButton(driverController, XboxConstants.RB_BUTTON).whileHeld(elevatorUpCommand);
+  }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+
   public Command getAutonomousCommand() {
   
-    // An  will run in autonomous
-    return autoCommand;
+    return new ElevatorDownCommand(elevatorSubsystem);
   }
 }

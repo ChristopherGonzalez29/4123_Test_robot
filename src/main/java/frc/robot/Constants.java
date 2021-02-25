@@ -18,7 +18,7 @@ public final class Constants {
 		public static final int AUXDRIVER_CONTROLLER_PORT = 1;
 	}
 
-	public static final class XboxController {
+	public static final class XboxConstants {
 
 		// Button mappings
 		static public int D_PAD = 0;
@@ -48,12 +48,12 @@ public final class Constants {
 		// Direction pad lookup angles
 		static public int POV_UP = 0;
 		static public int POV_RIGHT = 90;
-		static public int POV_DOWNN = 180;
+		static public int POV_DOWN = 180;
 		static public int POV_LEFT = 270;
 
 	}
 
-	public static final class PS4Controller {
+	public static final class PS4Constants {
 
 		static public int X_BUTTON = 1;
 		static public int O_BUTTON = 2;
@@ -62,7 +62,7 @@ public final class Constants {
 
 	}
 
-	public static final class LogitecController {
+	public static final class LogitecConstants {
 
 		public static final int ONE_BUTTON = 1;
 		public static final int TWO_BUTTON = 2;
